@@ -1,0 +1,7 @@
+.big
+{
+    width:400px;
+    height: 200px;
+    border-radius: 60px;
+    box-shadow: 0 0 10px 6px darkgreen;
+}
