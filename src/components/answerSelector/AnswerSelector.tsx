@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from './AnswerSelector.module.css';
-import {DefaultAnswerOption} from "./DefaultAnswerOption";
-import {IOption, IProp, IState} from "./interfaces";
+import { DefaultAnswerOption } from "./DefaultAnswerOption";
+import { IOption, IProp, IState } from "./interfaces";
 
 // import 'antd/dist/antd.css'
 
@@ -11,7 +11,7 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
     hoverAnswerIndex:-1,
   }
   componentDidMount() {
-    this.setState({answers:this.props.answers})
+    this.showAnswers(this.props.answers)
   }
 
   showAnswers(answers:IOption[])
@@ -53,7 +53,7 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
             aClass = classNames.nodeHover;
           }
           //region 可选择的元素,如果指定了dom的话,就显示dom,如果没有指定,就用默认的来展示
-          let answerOptionDom = null;
+          let answerOptionDom:JSX.Element;
           if (item.content)
           {
             answerOptionDom=item.content;
