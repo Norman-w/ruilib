@@ -6,11 +6,12 @@ import { IOption, IProp, IState } from "./interfaces";
 // import 'antd/dist/antd.css'
 
 export class AnswerSelector extends React.PureComponent<IProp,IState>{
-  state:IState ={
-    answers:[],
-    hoverAnswerIndex:-1,
-  }
+  // state:IState ={
+  //   answers:[],
+  //   hoverAnswerIndex:-1,
+  // }
   componentDidMount() {
+    // console.log('问答选择组件已加载');
     this.showAnswers(this.props.answers)
   }
 
@@ -21,9 +22,17 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
 
   constructor(props:IProp) {
     super(props);
+    this.state = {
+        answers:[],
+        hoverAnswerIndex:-1,
+      }
   }
 
   render() {
+    if (!this.state || !this.state.answers)
+    {
+      return <div>选项加载中...</div>
+    }
     //region 根据元素的个数计算宽度,使用元素个数开平方的方式.比如9个,是三行三列,10个,就是根号10的Math.Floor +1 为每行数量
     let nodeCount = this.state.answers.length;
     let colCount = nodeCount;
