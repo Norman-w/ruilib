@@ -19,13 +19,14 @@
 @keyframes mainIn {
   from {
     transform: scale(0.1);
-    opacity: 0%;
+    opacity: 0;
   }
   to {
     transform: scale(1);
     opacity: 100%;
   }
 }
+/*选项的基础样式*/
 .node {
   user-select: none;
   cursor: pointer;
@@ -35,16 +36,57 @@
   opacity: 60%;
   transition: 0.4s;
 }
-.nodeHover
+/*选项鼠标悬停时的样式*/
+.node_action_Hover
 {
   composes: node;
   box-shadow: 0 0 5px 3px lightskyblue;
   opacity: 100%;
   transform: scale(1.01);
 }
-.nodeSelected
+/*选项被选中以后的样式*/
+.node_action_Selected
 {
   composes: node;
   box-shadow: 0 0 5px 3px darkgreen;
   opacity: 100%;
+}
+/*信息提示类选项的样式*/
+.node_mode_info
+{
+  composes: node;
+  color: black;
+}
+/*警告类选项的样式*/
+.node_mode_warn
+{
+  composes: node;
+  color: darkorange;
+}
+/*错误类选项的样式*/
+.node_mode_error
+{
+  composes: node;
+  color: orangered;
+}
+/*危险提示选项的样式*/
+.node_mode_danger
+{
+  composes: node;
+  color: darkred;
+}
+/*被禁用选项的样式*/
+.node_mode_disabled
+{
+  composes: node;
+  color: darkgray;
+  filter: blur(3px);
+}
+/*被推荐选项的样式*/
+.node_mode_suggested
+{
+  composes: node;
+  color: forestgreen;
+  background-color: azure;
+  border: 2px dashed forestgreen;
 }

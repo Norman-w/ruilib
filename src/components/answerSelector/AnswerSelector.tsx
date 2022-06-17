@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from './AnswerSelector.module.css';
 import { DefaultAnswerOption } from "./DefaultAnswerOption";
-import { IOption, IProp, IState } from "./interfaces";
+import {IOption, IProp, IState, OptionMode} from "./interfaces";
 
 // import 'antd/dist/antd.css'
 
@@ -26,6 +26,37 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
         answers:[],
         hoverAnswerIndex:-1,
       }
+  }
+
+  getClassName(mode:OptionMode,hovered:boolean,selected:boolean)
+  {
+    let ret:string = classNames.node;
+    switch (mode) {
+      case "disabled":
+        ret = classNames.node_mode_disabled;
+        break;
+      case "suggested":
+        ret = classNames.node_mode_suggested;
+        break;
+      case "error":
+        ret = classNames.node_mode_error;
+        break;
+      case "info":
+        ret = classNames.node_mode_info;
+        break;
+      case "warn":
+        ret = classNames.node_mode_warn;
+        break;
+    }
+    if (hovered)
+    {
+      ret +=' '+ classNames.node_action_Hover;
+    }
+    if(selected)
+    {
+      ret +=' '+ classNames.node_action_Selected;
+    }
+    return ret;
   }
 
   render() {
@@ -56,11 +87,10 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
       <div className={classNames.main}>
         {this.state.answers.map((item:IOption,index)=>
         {
-          let aClass = classNames.node;
-          if (this.state.hoverAnswerIndex === index)
-          {
-            aClass = classNames.nodeHover;
-          }
+          let aClass = this.getClassName(item.mode?item.mode:'info',this.state.hoverAnswerIndex === index, false);
+
+          // console.log(item.mode)
+          // console.log('aClass is :' , aClass);
           //region 可选择的元素,如果指定了dom的话,就显示dom,如果没有指定,就用默认的来展示
           let answerOptionDom:JSX.Element;
           if (item.content)
