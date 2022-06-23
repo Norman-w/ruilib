@@ -29,7 +29,7 @@
 /*选项的基础样式*/
 .node {
   user-select: none;
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-color: ghostwhite;
   border-radius: 10px;
   box-shadow: 0 0 3px 1px #d3d3d3;

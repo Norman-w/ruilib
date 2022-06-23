@@ -15,6 +15,17 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
     this.showAnswers(this.props.answers)
   }
 
+  componentWillReceiveProps(nextProps: Readonly<IProp>, nextContext: any) {
+    if (nextProps.answers!== this.state.answers)
+    {
+      this.showAnswers(nextProps.answers);
+    }
+    if (process && process.env && process.env.NM)
+    {
+      console.log(nextContext);
+    }
+  }
+
   showAnswers(answers:IOption[])
   {
     this.setState({answers:answers});
@@ -28,7 +39,8 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
       }
   }
 
-  getClassName(mode:OptionMode,hovered:boolean,selected:boolean)
+  //获取样式的class名称
+  getStyleClassName(mode:OptionMode,hovered:boolean,selected:boolean)
   {
     let ret:string = classNames.node;
     switch (mode) {
@@ -48,7 +60,8 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
         ret = classNames.node_mode_warn;
         break;
     }
-    if (hovered)
+    //如果鼠标悬停并且设置了支持悬停样式的话
+    if (hovered && this.props.enableHoverStyle !== false)
     {
       ret +=' '+ classNames.node_action_Hover;
     }
@@ -68,7 +81,7 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
     let nodeCount = this.state.answers.length;
     let colCount = nodeCount;
     let rowCount = 1;
-    if(colCount>3) {
+    if(colCount>3 && this.props.singleLineMode !== true) {
       colCount = Math.sqrt(nodeCount);
       if (Math.floor(colCount)<colCount)
       {
@@ -82,12 +95,16 @@ export class AnswerSelector extends React.PureComponent<IProp,IState>{
         rowCount = Math.floor(rowCount) +1;
       }
     }
+    else {
+      //row count 还是等于1
+      //rowCount =1;
+    }
     //endregion
     return (
       <div className={classNames.main}>
         {this.state.answers.map((item:IOption,index)=>
         {
-          let aClass = this.getClassName(item.mode?item.mode:'info',this.state.hoverAnswerIndex === index, false);
+          let aClass = this.getStyleClassName(item.mode?item.mode:'info',this.state.hoverAnswerIndex === index, false);
 
           // console.log(item.mode)
           // console.log('aClass is :' , aClass);
